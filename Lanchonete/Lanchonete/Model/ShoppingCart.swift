@@ -8,18 +8,19 @@
 import Foundation
 
 struct ShoppingCart {
-    var sandwiches: Array<Sandwich> = Array()
-    var promotions: Array<Promotion> = Array()
-    let promotionsValue: Double?
-    let finalPriceValue: Double?
-    let priceWithoutPromotions: Double?
+    var partialOrders: [PartialOrder]
     
-    init(sandwiches: Array<Sandwich>, promotions: Array<Promotion>, promotionsValue: Double?=nil, finalPriceValue: Double?=nil,priceWithoutPromotions: Double?=nil ) {
-        self.sandwiches = sandwiches
-        self.promotions = promotions
-        self.promotionsValue = promotionsValue
-        self.finalPriceValue = finalPriceValue
-        self.priceWithoutPromotions = priceWithoutPromotions
+    func total () -> Double {
+        var total : Double = 0.0
+        for partial in partialOrders {
+            total += partial.total()
+        }
+        return total
     }
+//    var promotions: Array<Promotion> = Array()
+//    let promotionsValue: Double?
+//    let finalPriceValue: Double?
+//    let priceWithoutPromotions: Double?
+    
     
 }

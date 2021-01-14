@@ -6,17 +6,43 @@
 //
 
 import Foundation
-
-struct Sandwich {
-    let name: String?
+public enum SandwichType:  String, CaseIterable {
+    case xBacon = "X-Bacon"
+    case xEgg = "X-Egg"
+    case xBurguer = "X-Burguer"
+    case xEggBacon = "X-EggBacon"
     
-    var ingredientsInSandwich: Array<IngredientInSandwich> = Array()
-    
-    var price: Double = 0.0
-    
-    init(name: String?=nil, ingredientsInSandwich: Array<IngredientInSandwich>, price: Double) {
-        self.name = name
-        self.ingredientsInSandwich = ingredientsInSandwich
-        self.price = price
+    var ingredientsInSandwich: [IngredientInSandwich] {
+        switch self {
+        case .xBacon:
+            return [IngredientInSandwich(ingredient: .hamburguer, quantity: 1),
+                    IngredientInSandwich(ingredient: .cheese, quantity: 1),
+                    IngredientInSandwich(ingredient: .bacon, quantity: 1)]
+        case .xBurguer:
+            return [IngredientInSandwich(ingredient: .hamburguer, quantity: 1), IngredientInSandwich(ingredient: .cheese, quantity: 1)]
+        case .xEgg:
+            return [IngredientInSandwich(ingredient: .hamburguer, quantity:1),IngredientInSandwich(ingredient: .cheese, quantity: 1),IngredientInSandwich(ingredient: .egg, quantity: 1)]
+        case .xEggBacon:
+            return [IngredientInSandwich(ingredient: .egg, quantity: 1),
+                    IngredientInSandwich(ingredient: .bacon, quantity: 1),
+                    IngredientInSandwich(ingredient: .hamburguer, quantity: 1),
+                    IngredientInSandwich(ingredient:.cheese, quantity: 1)]
+        }
     }
+    
+}
+
+struct Sandwich: Equatable {
+    let type: SandwichType
+    
+    func price() -> Double {
+        var total:Double = 0.0
+        
+        for ingredient in type.ingredientsInSandwich {
+            total += ingredient.total()
+        }
+        
+        return total
+    }
+    
 }

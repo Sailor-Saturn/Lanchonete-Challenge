@@ -10,10 +10,9 @@ import Foundation
 struct IngredientInSandwich {
     let ingredient: Ingredient
     
-    let quantity: Int?
+    let quantity: Int
     
-    init(ingredient: Ingredient, quantity: Int?=nil) {
-        self.ingredient = ingredient
-        self.quantity = quantity
+    func total() -> Double {
+        return ingredient.price * (Double) (quantity)
     }
 }
